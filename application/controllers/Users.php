@@ -10,48 +10,48 @@
     }
 
     public function index(){
-      $data['users'] = $this->users_model->getAllUsers();
-      $this->load->view('user_list.php', $data);
+      $data['users'] = $this->users_model->getAllUsers(); //Receiving data from method model
+      $this->load->view('user_list.php', $data); //Load a view and parsing data into it
     }
 
     public function addNew(){
-      $this->load->view('addform.php');
+      $this->load->view('addform.php'); //Load a view
     }
 
     public function insert(){
-      $user['id'] = uniqid();
-      $user['username'] = $this->input->post('username');
-      $user['password'] = $this->input->post('password');
-      $user['fname'] = $this->input->post('fname');
+      $user['id'] = uniqid(); //Attach uniqid method to id, to get uniq id from php
+      $user['username'] = $this->input->post('username'); //getting username input
+      $user['password'] = $this->input->post('password'); //getting password input
+      $user['fname'] = $this->input->post('fname'); //getting fullname input
 
-      $query = $this->users_model->insertUser($user);
+      $query = $this->users_model->insertUser($user); //Using insertUser method from model to insert data into database
       if($query){
-        header('location:'.base_url().$this->index());
+        header('location:'.base_url().$this->index()); //If query success or true will change header or refresh the url into particular page
       }
     }
 
     public function edit($id){
-      $data['user'] = $this->users_model->getUser($id);
-      $this->load->view('editform', $data);
+      $data['user'] = $this->users_model->getUser($id); //Getting all data with getUser method from model
+      $this->load->view('editform', $data); //load a view and send a data into it
     }
 
     public function update($id){
-      $user['username'] = $this->input->post('username');
-      $user['password'] = $this->input->post('password');
-      $user['fname'] = $this->input->post('fname');
+      $user['username'] = $this->input->post('username'); //getting username from input
+      $user['password'] = $this->input->post('password'); //getting password from input
+      $user['fname'] = $this->input->post('fname'); //getting fullname from input
 
-      $query = $this->users_model->updateuser($user, $id);
+      $query = $this->users_model->updateuser($user, $id); //load model and send $user and $id as parameter
 
       if($query){
-        header('location:'.base_url().$this->index());
+        header('location:'.base_url().$this->index()); //Change header location
       }
     }
 
     public function delete($id){
-      $query = $this->users_model->deleteUser($id);
+      $query = $this->users_model->deleteUser($id); //load deleteUser method from model and send $id as parameter
 
       if($query){
-        header('location:'.base_url().$this->index());
+        header('location:'.base_url().$this->index()); //refresh the url
       }
     }
   }
